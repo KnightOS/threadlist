@@ -1,22 +1,11 @@
-OUTDIR:=bin/
-BINDIR:=$(OUTDIR)bin/
+include .knightos/variables.make
 
-DEPENDENCIES=../corelib/
+# This is a list of files that need to be added to the filesystem when installing your program
+ALL_TARGETS:=$(BIN)threadlist
 
-all: package
+# This is all the make targets to produce said files
+$(BIN)threadlist: main.asm
+	mkdir -p $(BIN)
+	$(AS) $(ASFLAGS) --listing $(OUT)main.list main.asm $(BIN)threadlist
 
-package: $(BINDIR)threadlist
-	kpack threadlist-0.1.0.pkg $(OUTDIR)
-
-$(BINDIR)threadlist: threadlist.asm
-	mkdir -p $(BINDIR)
-	$(AS) $(ASFLAGS) --define "$(PLATFORM)" --include "$(INCLUDE);$(PACKAGEPATH)/threadlist/;$(DEPENDENCIES)" threadlist.asm $(BINDIR)threadlist
-
-clean:
-	rm -rf $(OUTDIR)
-	rm -rf threadlist-0.1.0.pkg
-
-install:
-	kpack -e -s threadlist-0.1.0.pkg $(PREFIX)
-
-.PHONY: all clean
+include .knightos/sdk.make
