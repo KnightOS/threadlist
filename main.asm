@@ -341,7 +341,7 @@ _:    ld a, 8
     pcall(drawStr)
 
     kld(hl, optionsStr)
-    ld de, 64 * 256 + 58
+    ld de, 60 * 256 + 58
     pcall(drawStr)
 
     kld(hl, runningProgramsStr)
@@ -463,7 +463,7 @@ runningProgramsStr:
 noProgramsStr:
     .db "No programs running!", 0
 forceQuitStr:
-    .db "Force Quit", 0
+    .db "Kill", 0
 
 totalThreads:
     .db 0
