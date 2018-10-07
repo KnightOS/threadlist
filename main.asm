@@ -476,5 +476,5 @@ displayedThreads:
 hasToRedraw:
     .db 0
 
-castlePath:
+launcherPath:
     .db "/bin/launcher", 0
