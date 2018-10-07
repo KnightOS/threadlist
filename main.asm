@@ -30,9 +30,9 @@ mainLoop:
     pcall(waitKey)
 
     cp kClear
-    kjp(z, launchCastle)
+    kjp(z, launchLauncher)
     cp kYEqu
-    kjp(z, launchCastle)
+    kjp(z, launchLauncher)
     cp kUp
     jr z, doUp
     cp kDown
@@ -186,8 +186,8 @@ _:  pcall(flushKeys)
     jr z, doKill
     jr -_
 
-launchCastle:
-    kld(de, castlePath)
+launchLauncher:
+    kld(de, launcherPath)
     di
     pcall(launchProgram)
     pcall(killCurrentThread)
@@ -210,7 +210,7 @@ _:  pcall(flushKeys)
     jr nz, -_
 
 _:  pcall(flushKeys)
-    jr launchCastle
+    jr launchLauncher
 
 drawThreads:
     xor a
@@ -455,7 +455,7 @@ moreThreadsDownSprite: ; 8x3
     .db 0b00100000
 
 backStr:
-    .db "Castle", 0
+    .db "Launcher", 0
 optionsStr:
     .db "Options", 0
 runningProgramsStr:
@@ -477,4 +477,4 @@ hasToRedraw:
     .db 0
 
 castlePath:
-    .db "/bin/castle", 0
+    .db "/bin/launcher", 0
