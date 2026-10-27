@@ -15,6 +15,7 @@ start:
     xor a
     kld((topThread), a)
     kld((cursorWasAtBottom), a)
+resetSelection:
     ld ix, threadTable
 redraw:
     kcall(drawInterface)
@@ -165,7 +166,7 @@ doKill:
     ld a, (ix)
     pcall(killThread)
     ei
-    kjp(redraw - 3)
+    kjp(resetSelection)
 
 doOptions:
     xor a
@@ -177,9 +178,9 @@ doOptions:
 _:  pcall(flushKeys)
     pcall(waitKey)
     cp kClear
-    kjp(z, redraw - 3)
+    kjp(z, resetSelection)
     cp kGraph
-    kjp(z, redraw - 3)
+    kjp(z, resetSelection)
     cp k2nd
     jr z, doKill
     cp kEnter
